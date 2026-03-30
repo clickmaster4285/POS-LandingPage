@@ -2,6 +2,14 @@ import { POS_DEFAULT_DESCRIPTION, POS_SITE_NAME } from "@/lib/pos-seo"
 import { POS_FAQ_ITEMS } from "@/lib/pos-faq-data"
 import { CLICKMASTERS_SITE_URL } from "@/lib/site-config"
 
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "ClickMasters",
+  url: CLICKMASTERS_SITE_URL,
+  logo: `${CLICKMASTERS_SITE_URL}/clickmasters-logo.png`,
+}
+
 const softwareJsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -14,7 +22,7 @@ const softwareJsonLd = {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD",
-    description: "Free trial / get started",
+    description: "Free trial / Get Free Consultation",
   },
   featureList: [
     "Point of sale checkout",
@@ -42,6 +50,10 @@ const faqJsonLd = {
 export function PosLandingStructuredData() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}

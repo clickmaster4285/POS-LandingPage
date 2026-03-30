@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { SectionHeader, useRevealOnScroll } from "@/components/marketing/section-header"
 import { 
   Zap, 
   Shield, 
@@ -72,25 +73,7 @@ const features = [
 ]
 
 export function Features() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible")
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    const reveals = sectionRef.current?.querySelectorAll(".reveal, .reveal-scale")
-    reveals?.forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
+  const sectionRef = useRevealOnScroll<HTMLElement>()
 
   return (
     <section ref={sectionRef} id="features" className="py-24 lg:py-32 relative overflow-hidden">
@@ -102,20 +85,24 @@ export function Features() {
       <div className="absolute bottom-40 right-10 w-40 h-40 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-2xl animate-float-slow" />
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="reveal text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            <span className="text-foreground">POS features </span>
-            <span className="gradient-text">teams expect</span>
-          </h2>
-          <p className="reveal delay-100 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything in one point-of-sale stack:{" "}
-            <span className="text-foreground/90 font-medium">
-              payments, inventory, staff, reporting, and cloud sync
-            </span>{" "}
-            — the same capability pillars top retail and restaurant POS platforms lead with.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="Features"
+          title={
+            <>
+              POS features <span className="gradient-text">teams expect</span>
+            </>
+          }
+          subtitle={
+            <>
+              Everything in one point-of-sale stack:{" "}
+              <span className="text-foreground/90 font-medium">
+                payments, inventory, staff, reporting, and cloud sync
+              </span>{" "}
+              — the same capability pillars top retail and restaurant POS platforms lead with.
+            </>
+          }
+          id="features-heading"
+        />
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

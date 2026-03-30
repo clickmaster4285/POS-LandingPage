@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Hero } from "@/components/marketing/hero"
+import { TrustedClients } from "@/components/marketing/trusted-clients"
 import { POSSystems } from "@/components/marketing/pos-systems"
 import { Features } from "@/components/marketing/features"
 import { PosDemoSection, type PosDemoScene } from "@/components/marketing/pos-demo-section"
@@ -59,14 +60,15 @@ export function HomePageClient() {
 
   return (
     <div className="min-h-screen bg-background relative" id="top">
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
         <Button
           type="button"
           onClick={() => openModal()}
-          className="h-14 px-6 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:from-violet-600 hover:to-fuchsia-600 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all hover:scale-105 group"
+          className="h-12 sm:h-14 px-4 sm:px-6 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:from-violet-600 hover:to-fuchsia-600 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all hover:scale-105 group"
         >
           <Sparkles className="w-5 h-5 mr-2 animate-pulse" />
-          <span>Explore 3D Demo</span>
+          <span className="hidden sm:inline">Explore 3D Demo</span>
+          <span className="sm:hidden">3D Demo</span>
         </Button>
       </div>
 
@@ -81,8 +83,9 @@ export function HomePageClient() {
       <Hero openSplineModal={() => openModal()} />
 
       {/* POS landing flow: capabilities → industries → demo → proof → FAQ → pricing */}
+      <TrustedClients />
       <Features />
-      <POSSystems />
+      <POSSystems limit={15} showViewAll />
       <PosDemoSection
         scenes={splineScenes}
         onOpenScene={(url) => openModal(url)}

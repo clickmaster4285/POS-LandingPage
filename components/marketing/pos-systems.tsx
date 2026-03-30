@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useMemo } from "react"
+import Link from "next/link"
 import type { LucideIcon } from "lucide-react"
 import {
   ShoppingCart,
@@ -109,7 +110,14 @@ const industryPresentation: Record<
 
 const categories = ["All", ...POS_INDUSTRIES] as const
 
-export function POSSystems() {
+type PosSystemsProps = {
+  /** Limit visible cards (homepage preview). When omitted, shows all. */
+  limit?: number
+  /** Show \"View all\" CTA linking to a full directory page. */
+  showViewAll?: boolean
+}
+
+export function POSSystems({ limit, showViewAll = false }: PosSystemsProps) {
   const [activeCategory, setActiveCategory] =
     useState<(typeof categories)[number]>("All")
   const [query, setQuery] = useState("")
@@ -128,23 +136,32 @@ export function POSSystems() {
     )
   }, [activeCategory, query])
 
+  const visibleSystems = useMemo(() => {
+    if (!limit) return filteredSystems
+    return filteredSystems.slice(0, limit)
+  }, [filteredSystems, limit])
+
+  // When filters change, we render a different set of cards.
+  // Re-bind the observer so newly-mounted `.reveal-scale` cards get `visible` applied.
   useEffect(() => {
+    const root = sectionRef.current
+    if (!root) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible")
-          }
+          if (entry.isIntersecting) entry.target.classList.add("visible")
         })
       },
       { threshold: 0.1 }
     )
 
-    const reveals = sectionRef.current?.querySelectorAll(".reveal, .reveal-scale")
-    reveals?.forEach((el) => observer.observe(el))
+    root
+      .querySelectorAll(".reveal, .reveal-scale")
+      .forEach((el) => observer.observe(el))
 
     return () => observer.disconnect()
-  }, [])
+  }, [activeCategory, query])
 
   const handleCardClick = (link?: string) => {
     if (link) {
@@ -204,11 +221,20 @@ export function POSSystems() {
         </div>
 
         <p className="text-center text-sm text-muted-foreground mb-6">
-          Showing {filteredSystems.length} of {POS_SYSTEM_ENTRIES.length} business types
+          Showing {visibleSystems.length} of {POS_SYSTEM_ENTRIES.length} business types
+          {limit ? (
+            <>
+              {" "}
+              <span className="text-muted-foreground">•</span>{" "}
+              <span className="text-muted-foreground">
+                Preview list on landing page
+              </span>
+            </>
+          ) : null}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {filteredSystems.map((system, index) => {
+          {visibleSystems.map((system, index) => {
             const { icon: Icon, gradient } = industryPresentation[system.industry]
             return (
               <div
@@ -245,6 +271,17 @@ export function POSSystems() {
             )
           })}
         </div>
+
+        {showViewAll ? (
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/pos-solutions"
+              className="inline-flex items-center rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground hover:bg-secondary/60 transition-colors"
+            >
+              View all POS solutions by industry →
+            </Link>
+          </div>
+        ) : null}
       </div>
     </section>
   )

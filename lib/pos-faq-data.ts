@@ -37,7 +37,7 @@ export const POS_FAQ_ITEMS: PosFaqItem[] = [
       "Many platforms optimize for a single vertical. ClickMasters POS emphasizes industry-specific templates—grocery, fashion, QSR, services, and more—similar to the specialization buyers expect from leading POS suites, while keeping one cohesive product family.",
   },
   {
-    question: "How do I get started or request a demo?",
+    question: "How do I Get Free Consultation or request a demo?",
     answer:
       "Use “Try for free” on this page, explore the interactive demo, or contact us for a walkthrough. We’ll align on your vertical, hardware, and payment needs so rollout matches your counters, back office, and staff training timeline.",
   },

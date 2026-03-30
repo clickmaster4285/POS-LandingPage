@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { ArrowRight, Star, Quote } from "lucide-react"
+import { SectionHeader, useRevealOnScroll } from "@/components/marketing/section-header"
 
 const testimonials = [
   {
@@ -39,25 +40,7 @@ const testimonials = [
 const clientLogos = ["Klarna", "Harvey.", "Oscar", "Superhuman", "Salesforce", "Stripe", "Shopify"]
 
 export function Testimonials() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible")
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    const reveals = sectionRef.current?.querySelectorAll(".reveal, .reveal-scale")
-    reveals?.forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
+  const sectionRef = useRevealOnScroll<HTMLElement>()
 
   return (
     <section ref={sectionRef} id="testimonials" className="py-24 lg:py-32 relative overflow-hidden">
@@ -67,18 +50,22 @@ export function Testimonials() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="reveal text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            <span className="text-foreground">POS results </span>
-            <span className="gradient-text">in the field</span>
-          </h2>
-          <p className="reveal delay-100 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Stores and restaurants using ClickMasters POS report faster checkout, tighter
-            inventory control, and clearer reporting—outcomes buyers compare across point-of-sale
-            vendors.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="Results"
+          title={
+            <>
+              POS results <span className="gradient-text">in the field</span>
+            </>
+          }
+          subtitle={
+            <>
+              Stores and restaurants using ClickMasters POS report faster checkout, tighter
+              inventory control, and clearer reporting—outcomes buyers compare across point-of-sale
+              vendors.
+            </>
+          }
+          id="testimonials-heading"
+        />
 
         {/* Client Logos - Animated scroll */}
         <div className="reveal delay-200 flex items-center justify-center gap-x-12 gap-y-4 mb-16 pb-16 border-b border-border overflow-hidden">

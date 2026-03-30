@@ -1,19 +1,9 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, Sparkles } from "lucide-react"
-import Image from "next/image"
-
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-16 h-16 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
-    </div>
-  ),
-})
+import Link from "next/link"
 
 interface HeroProps {
   openSplineModal?: () => void
@@ -21,7 +11,6 @@ interface HeroProps {
 
 export function Hero({ openSplineModal }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null)
-  const marqueeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,36 +35,37 @@ export function Hero({ openSplineModal }: HeroProps) {
     { 
       name: "Google", 
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+        <svg className="w-6 h-6" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+          <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" opacity="0.85" />
+          <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" opacity="0.7" />
+          <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" opacity="0.9" />
         </svg>
       )
     },
     { 
       name: "Stripe", 
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24">
-          <path fill="#635BFF" d="M13.5 7.5h3v9h-3zM21 7.5h-3v9h3zM7.5 10.5c0-.8.7-1.5 1.5-1.5h4.5V6H9c-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5h3c.8 0 1.5.7 1.5 1.5v1.5H9c-.8 0-1.5-.7-1.5-1.5v-1.5H4.5v1.5c0 2.5 2 4.5 4.5 4.5h3c2.5 0 4.5-2 4.5-4.5s-2-4.5-4.5-4.5H9c-.8 0-1.5-.7-1.5-1.5V10.5z" />
+        <svg className="w-6 h-6" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M13.5 7.5h3v9h-3zM21 7.5h-3v9h3zM7.5 10.5c0-.8.7-1.5 1.5-1.5h4.5V6H9c-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5h3c.8 0 1.5.7 1.5 1.5v1.5H9c-.8 0-1.5-.7-1.5-1.5v-1.5H4.5v1.5c0 2.5 2 4.5 4.5 4.5h3c2.5 0 4.5-2 4.5-4.5s-2-4.5-4.5-4.5H9c-.8 0-1.5-.7-1.5-1.5V10.5z" />
         </svg>
       )
     },
     { 
       name: "Shopify", 
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24">
-          <path fill="#95BF47" d="M16.5 6.5l-3-4.5h-3l3 4.5h3zM12 2l-3 4.5h3V2zM7.5 2l3 4.5h-3V2zM19.5 6.5h-15c-.6 0-1 .4-1 1v11c0 .6.4 1 1 1h15c.6 0 1-.4 1-1v-11c0-.6-.4-1-1-1z" />
-          <path fill="#5E8E3E" d="M16.5 6.5h-15l2 4h15l-2-4z" />
+        <svg className="w-6 h-6" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M19.5 6.5h-15c-.6 0-1 .4-1 1v11c0 .6.4 1 1 1h15c.6 0 1-.4 1-1v-11c0-.6-.4-1-1-1z" />
+          <path fill="currentColor" d="M16.5 6.5l-3-4.5h-3l3 4.5h3z" opacity="0.85" />
+          <path fill="currentColor" d="M12 2l-3 4.5h3V2z" opacity="0.85" />
         </svg>
       )
     },
     { 
       name: "Square", 
       icon: (
-        <svg className="w-5 h-5" viewBox="0 0 24 24">
-          <path fill="#000000" d="M4 4h16v16H4V4zm2 2v12h12V6H6z" />
+        <svg className="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M4 4h16v16H4V4zm2 2v12h12V6H6z" />
         </svg>
       )
     },
@@ -158,12 +148,19 @@ export function Hero({ openSplineModal }: HeroProps) {
               <div className="reveal delay-300 flex flex-wrap items-center justify-center lg:justify-start gap-4">
                 <Button
                   size="lg"
+                  asChild
                   className="h-14 px-8 text-base font-semibold rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:from-violet-600 hover:to-fuchsia-600 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all hover:scale-105"
                 >
-                  Try ClickMasters POS for free
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                  <Link href="/contact">
+                    Get a free POS demo
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="h-14 px-7 rounded-full">
+                  <Link href="/#pricing">See pricing</Link>
                 </Button>
                 <Button
+                  type="button"
                   variant="ghost"
                   size="lg"
                   onClick={openSplineModal}
@@ -172,8 +169,21 @@ export function Hero({ openSplineModal }: HeroProps) {
                   <span className="w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center mr-2 group-hover:bg-foreground/20 transition-colors">
                     <Play className="w-4 h-4 fill-current" />
                   </span>
-                  Watch 3D Demo
+                  3D demo
                 </Button>
+              </div>
+
+              <div className="reveal delay-400 mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-sm text-muted-foreground">
+                {[
+                  { href: "/#features", label: "Features" },
+                  { href: "/#solution", label: "Industries" },
+                  { href: "/#faq", label: "FAQ" },
+                  { href: "/#pricing", label: "Pricing" },
+                ].map((l) => (
+                  <Link key={l.href} href={l.href} className="hover:text-foreground transition-colors">
+                    {l.label}
+                  </Link>
+                ))}
               </div>
 
               {/* Stats row */}
@@ -191,24 +201,87 @@ export function Hero({ openSplineModal }: HeroProps) {
               </div>
             </div>
 
-            {/* Right side - Spline 3D */}
-            <div className="reveal-scale delay-200 relative h-[400px] lg:h-[600px] group cursor-pointer" onClick={openSplineModal}>
+            {/* Right side - Lightweight preview (opens 3D modal) */}
+            <div
+              className="reveal-scale delay-200 relative h-[400px] lg:h-[600px] group cursor-pointer"
+              onClick={openSplineModal}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault()
+                  openSplineModal?.()
+                }
+              }}
+              aria-label="Open interactive 3D POS demo"
+            >
               <div className="absolute inset-0 bg-gradient-to-br from-violet-100/50 via-fuchsia-100/30 to-amber-100/50 rounded-3xl group-hover:scale-105 transition-transform duration-500" />
-              <Spline
-                scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
-                className="w-full h-full"
-              />
-              
-              {/* Interactive overlay */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="bg-black/50 backdrop-blur-sm rounded-full p-4">
-                  <Play className="w-8 h-8 text-white fill-white" />
+              <div className="absolute inset-0 rounded-3xl border border-border/70 bg-background/20 backdrop-blur-[2px]" />
+
+              {/* Faux product cards (fast, no heavy assets) */}
+              <div className="absolute inset-0 p-6 lg:p-8">
+                <div className="h-full grid grid-rows-[auto_1fr_auto] gap-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex size-9 items-center justify-center rounded-xl bg-white/70 ring-1 ring-border shadow-sm">
+                        <Sparkles className="size-4 text-violet-600" />
+                      </span>
+                      <div>
+                        <p className="text-xs font-semibold text-foreground/80">Interactive preview</p>
+                        <p className="text-[11px] text-muted-foreground">Checkout • Inventory • Analytics</p>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-black/50 text-white border border-white/15">
+                      3D demo
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="rounded-2xl border border-border/70 bg-card/70 backdrop-blur-sm p-4 shadow-sm">
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                        Today
+                      </p>
+                      <div className="space-y-2">
+                        <div className="h-3 rounded-full bg-foreground/10 w-[85%]" />
+                        <div className="h-3 rounded-full bg-foreground/10 w-[70%]" />
+                        <div className="h-3 rounded-full bg-foreground/10 w-[60%]" />
+                      </div>
+                      <div className="mt-5 h-10 rounded-xl bg-gradient-to-r from-violet-500/15 to-fuchsia-500/10 border border-violet-500/15" />
+                    </div>
+                    <div className="rounded-2xl border border-border/70 bg-card/70 backdrop-blur-sm p-4 shadow-sm">
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                        Basket
+                      </p>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="h-3 rounded-full bg-foreground/10 w-[55%]" />
+                          <div className="h-3 rounded-full bg-foreground/10 w-[20%]" />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="h-3 rounded-full bg-foreground/10 w-[62%]" />
+                          <div className="h-3 rounded-full bg-foreground/10 w-[18%]" />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="h-3 rounded-full bg-foreground/10 w-[48%]" />
+                          <div className="h-3 rounded-full bg-foreground/10 w-[22%]" />
+                        </div>
+                      </div>
+                      <div className="mt-5 h-10 rounded-xl bg-gradient-to-r from-emerald-500/15 to-teal-500/10 border border-emerald-500/15" />
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-border/70 bg-card/70 backdrop-blur-sm p-4 shadow-sm flex items-center justify-between">
+                    <p className="text-sm font-semibold text-foreground/80">
+                      Open interactive 3D tour
+                    </p>
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-violet-700">
+                      Play
+                      <span className="inline-flex size-9 items-center justify-center rounded-full bg-black/50 text-white border border-white/15">
+                        <Play className="size-4 fill-white" />
+                      </span>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              
-              {/* 3D badge */}
-              <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full border border-white/20">
-                Interactive 3D
               </div>
             </div>
           </div>
@@ -230,38 +303,16 @@ export function Hero({ openSplineModal }: HeroProps) {
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
             
             {/* Animated logos */}
-            <div 
-              ref={marqueeRef}
-              className="flex animate-marquee whitespace-nowrap"
-            >
-              {duplicatedBrands.map((brand, index) => (
+            <div className="flex whitespace-nowrap animate-marquee">
+              {[...duplicatedBrands, ...duplicatedBrands].map((brand, index) => (
                 <div
                   key={`${brand.name}-${index}`}
                   className="inline-flex items-center justify-center mx-8 gap-2"
                 >
-                  <div className="text-foreground/50 group-hover:text-foreground/80 transition-all">
+                  <div className="text-foreground/40 hover:text-foreground/70 transition-colors">
                     {brand.icon}
                   </div>
-                  <span className="text-foreground/30 hover:text-foreground/60 transition-all font-medium text-lg tracking-tight hover:scale-110 cursor-pointer">
-                    {brand.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Second marquee for seamless loop */}
-            <div 
-              className="flex absolute top-0 animate-marquee2 whitespace-nowrap"
-            >
-              {duplicatedBrands.map((brand, index) => (
-                <div
-                  key={`${brand.name}-${index}-2`}
-                  className="inline-flex items-center justify-center mx-8 gap-2"
-                >
-                  <div className="text-foreground/50 group-hover:text-foreground/80 transition-all">
-                    {brand.icon}
-                  </div>
-                  <span className="text-foreground/30 hover:text-foreground/60 transition-all font-medium text-lg tracking-tight hover:scale-110 cursor-pointer">
+                  <span className="text-foreground/30 hover:text-foreground/60 transition-colors font-medium text-lg tracking-tight hover:scale-110 cursor-pointer">
                     {brand.name}
                   </span>
                 </div>
@@ -273,34 +324,6 @@ export function Hero({ openSplineModal }: HeroProps) {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-
-        @keyframes marquee2 {
-          0% {
-            transform: translateX(50%);
-          }
-          100% {
-            transform: translateX(0%);
-          }
-        }
-
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-
-        .animate-marquee2 {
-          animation: marquee2 30s linear infinite;
-        }
-      `}</style>
     </section>
   )
 }

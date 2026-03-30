@@ -3,29 +3,12 @@
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Check, Sparkles } from "lucide-react"
+import { SectionHeader, useRevealOnScroll } from "@/components/marketing/section-header"
 
 export function CTA() {
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible")
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    const reveals = sectionRef.current?.querySelectorAll(".reveal, .reveal-scale")
-    reveals?.forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
+  const sectionRef = useRevealOnScroll<HTMLElement>()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,18 +33,15 @@ export function CTA() {
           <Sparkles className="absolute top-8 left-8 w-6 h-6 text-violet-400/30 animate-bounce-subtle" />
           <Sparkles className="absolute bottom-8 right-8 w-8 h-8 text-amber-400/30 animate-bounce-subtle delay-300" />
 
-          {/* Main headline */}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance">
-            <span className="text-foreground">Get </span>
-            <span className="gradient-text">POS pricing</span>
-            <span className="text-foreground"> &amp; onboarding</span>
-          </h2>
-
-          <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
-            Start a free trial or talk to our team about registers, tablet POS, payment
-            processing, and multi-store rollout—everything you&apos;d expect when buying a
-            modern point-of-sale system.
-          </p>
+          <SectionHeader
+            eyebrow="Pricing"
+            title={
+              <>
+                Get <span className="gradient-text">POS pricing</span> &amp; onboarding
+              </>
+            }
+            subtitle="Start a free trial or talk to our team about registers, tablet POS, payment processing, and multi-store rollout—everything you’d expect when buying a modern point-of-sale system."
+          />
 
           {/* CTA Form */}
           {!submitted ? (
@@ -79,7 +59,7 @@ export function CTA() {
                 size="lg"
                 className="h-14 px-8 font-semibold whitespace-nowrap rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:from-violet-600 hover:to-fuchsia-600 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-105 transition-all"
               >
-                Get Started
+                Get Free Consultation
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </form>

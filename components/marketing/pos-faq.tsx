@@ -3,22 +3,10 @@
 import { useEffect, useRef } from "react"
 import { ChevronDown } from "lucide-react"
 import { POS_FAQ_ITEMS } from "@/lib/pos-faq-data"
+import { SectionHeader, useRevealOnScroll } from "@/components/marketing/section-header"
 
 export function PosFaq() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible")
-        })
-      },
-      { threshold: 0.08 }
-    )
-    sectionRef.current?.querySelectorAll(".reveal").forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+  const sectionRef = useRevealOnScroll<HTMLElement>()
 
   return (
     <section
@@ -32,22 +20,16 @@ export function PosFaq() {
       </div>
 
       <div className="max-w-3xl mx-auto px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-14">
-          <p className="reveal text-xs font-semibold tracking-[0.2em] uppercase text-violet-600 dark:text-violet-400 mb-3">
-            POS software FAQ
-          </p>
-          <h2
-            id="faq-heading"
-            className="reveal delay-100 text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4 text-balance"
-          >
-            Questions about{" "}
-            <span className="gradient-text">point of sale</span>
-          </h2>
-          <p className="reveal delay-200 text-muted-foreground text-lg leading-relaxed">
-            Straight answers on cloud POS, payments, inventory, and how ClickMasters POS
-            fits retail and restaurant operations.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="POS software FAQ"
+          title={
+            <>
+              Questions about <span className="gradient-text">point of sale</span>
+            </>
+          }
+          subtitle="Straight answers on cloud POS, payments, inventory, and how ClickMasters POS fits retail and restaurant operations."
+          id="faq-heading"
+        />
 
         <ul className="space-y-3">
           {POS_FAQ_ITEMS.map((item, index) => (

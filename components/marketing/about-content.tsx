@@ -1,6 +1,19 @@
 import Link from "next/link"
-import { ArrowRight, Boxes, Headphones, Shield, Zap } from "lucide-react"
+import {
+  ArrowRight,
+  Boxes,
+  Headphones,
+  Shield,
+  Zap,
+  Code2,
+  Database,
+  Cloud,
+  Smartphone,
+  Lock,
+  Cpu,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CLICKMASTERS_SITE_URL, CLICKMASTERS_SOFTWARE_URL } from "@/lib/site-config"
 
 const valueProps = [
@@ -44,19 +57,69 @@ const sectors = [
 const techGroups: { label: string; items: string[] }[] = [
   {
     label: "Frontend",
-    items: ["React", "Next.js", "Vue", "Angular", "TypeScript", "Tailwind CSS"],
+    items: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Vite",
+      "Vue",
+      "Angular",
+      "Redux/Zustand",
+      "Accessibility (WCAG)",
+    ],
   },
   {
     label: "Backend",
-    items: ["Node.js", "Python/Django", "Laravel", "Ruby on Rails", "Go", "Java/Spring"],
+    items: [
+      "Node.js",
+      "NestJS",
+      "Express",
+      "Python/Django",
+      "FastAPI",
+      "Laravel",
+      "Go",
+      "Java/Spring",
+      "REST APIs",
+      "GraphQL",
+    ],
   },
   {
     label: "Mobile",
-    items: ["React Native", "Flutter", "Swift/iOS", "Kotlin/Android"],
+    items: ["React Native", "Flutter", "Swift/iOS", "Kotlin/Android", "PWA"],
   },
   {
     label: "Data & cloud",
-    items: ["PostgreSQL", "MongoDB", "Redis", "AWS", "GCP", "Azure", "Docker", "Kubernetes"],
+    items: [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "Redis",
+      "AWS",
+      "GCP",
+      "Azure",
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "Observability",
+    ],
+  },
+]
+
+const techCards: { label: string; icon: typeof Code2; items: string[] }[] = [
+  { label: "Web frontend", icon: Code2, items: techGroups[0]!.items },
+  { label: "Backend & APIs", icon: Cpu, items: techGroups[1]!.items },
+  { label: "Mobile apps", icon: Smartphone, items: techGroups[2]!.items },
+  { label: "Databases & cloud", icon: Cloud, items: techGroups[3]!.items },
+  {
+    label: "Security & quality",
+    icon: Lock,
+    items: ["OWASP", "Secure auth", "Testing", "Performance", "Code review", "QA workflows"],
+  },
+  {
+    label: "Data layer",
+    icon: Database,
+    items: ["Schema design", "Migrations", "Caching", "Reporting", "Analytics-ready events"],
   },
 ]
 
@@ -207,24 +270,38 @@ export function AboutContent() {
           <h2 className="text-2xl lg:text-3xl font-bold text-foreground">
             Modern tools for reliable products
           </h2>
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto mt-2">
+            We choose the right technology for your goals — speed to market, stability, and
+            long-term maintainability.
+          </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {techGroups.map((g) => (
-            <div key={g.label}>
-              <p className="text-xs font-bold uppercase tracking-wider text-violet-600 dark:text-violet-400 mb-3">
-                {g.label}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {g.items.map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs font-medium text-foreground bg-secondary px-3 py-1.5 rounded-full border border-border"
-                  >
-                    {t}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {techCards.map(({ label, icon: Icon, items }) => (
+            <Card
+              key={label}
+              className="rounded-2xl border-border/80 bg-card/70 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow"
+            >
+              <CardHeader className="pb-0">
+                <CardTitle className="flex items-center gap-3 text-base">
+                  <span className="inline-flex size-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-700 dark:text-violet-300 ring-1 ring-violet-500/15">
+                    <Icon className="size-5" aria-hidden />
                   </span>
-                ))}
-              </div>
-            </div>
+                  {label}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {items.map((t) => (
+                    <span
+                      key={t}
+                      className="text-xs font-medium text-foreground/90 bg-secondary/60 px-3 py-1.5 rounded-full border border-border/80"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
